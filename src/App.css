@@ -52,7 +52,7 @@ button {
   align-items: center;
 }
 .logoImg {
-  width: 10%;
+  width: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,4 +62,18 @@ button {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.charBtn {
+  height: 200px;
+  width: 200px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: bottom;
+}
+.charSelContainer {
+  display: flex;
+  gap: 5px;
 }

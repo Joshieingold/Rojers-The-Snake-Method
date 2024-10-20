@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
+import joshSprite from "./assets/joshSprite.png";
+import maulikSprite from "./assets/maulkSprite.png";
+import michealSprite from "./assets/michealSprite.png";
+import Logo from "./assets/Rojers Logo.png";
+import tkSprite from "./assets/tkSprite.png";
 import Snake from "./Snake/snake.jsx";
-import Logo from "./assets/pxArt.png";
 
 const GameState = {
   TITLE: "TITLE",
@@ -48,12 +52,28 @@ function App() {
         </div>
       )}
       {gameState === GameState.CHARACTERSELECT && (
+        <div className="screenContainer">
+        <h1>Choose your Bom-Wipper!</h1>
         <div className="charSelContainer">
-          <button onClick={startGame}>Josh</button>
-          <button>TK</button>
-          <button>Micheal</button>
-          <button>Maulik</button>
+          <div className="joshContainer">
+            <button onClick={startGame} className="charBtn"><img src={joshSprite} className="sprite"></img></button>  
+            <h4 className="charName">Josh</h4>          
+          </div>
+          <div className="tkContainer">
+            <button onClick={startGame} className="charBtn"><img src={tkSprite} className="sprite"></img></button>  
+            <h4 className="charName">TK</h4>          
+          </div>
+          <div className="michealContainer">
+            <button onClick={startGame} className="charBtn"><img src={michealSprite} className="sprite"></img></button>  
+            <h4 className="charName">Micheal</h4>          
+          </div>
+          <div className="MaulikContainer">
+            <button onClick={startGame} className="charBtn"><img src={maulikSprite} className="sprite"></img></button>  
+            <h4 className="charName">Maulik</h4>          
+          </div>
         </div>
+        </div>
+
       )}
       {gameState === GameState.PLAYING && (
         <Snake gameOver={gameOver} />
