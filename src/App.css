@@ -23,20 +23,14 @@
 .cell {
   width: 20px;
   height: 20px;
-  background-color: #000000;
+  background-color: #00000075;
 }
 
-.snake {
-  background-color: green;
-}
 
-.food {
-  background-color: red;
-}
 
-.powerup {
-  background-color: purple;
-}
+
+
+
 
 button {
   padding: 10px 20px;
@@ -76,4 +70,19 @@ button {
 .charSelContainer {
   display: flex;
   gap: 5px;
+}
+.food {
+  background-image: url('src/assets/barcodeSprite.png');
+  background-size:cover ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.powerup {
+  background-image: url('src/assets/powerupSprite.png');
+  background-size:cover ;
+}
+.snake {
+  background-image: url('src/assets/rojersBoxSprite.png');
+  background-size: cover;
 }
