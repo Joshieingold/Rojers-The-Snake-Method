@@ -16,8 +16,8 @@ function App() {
   const startGame = () => {
     setGameState(GameState.PLAYING);
   };
-  const selectCharater = () => {
-    setCharacter("No Character Selected")
+  const selectCharacter = () => {
+    setGameState(GameState.CHARACTERSELECT)
   }
   // Handle Game Over
   const gameOver = () => {
@@ -39,7 +39,15 @@ function App() {
           </div>
           
           <h2>The Snake Method</h2>
-          <button onClick={startGame}>Start Game</button>
+          <button onClick={selectCharacter}>Start Game</button>
+        </div>
+      )}
+      {gameState === GameState.CHARACTERSELECT && (
+        <div className="charSelContainer">
+          <button onClick={startGame}>Josh</button>
+          <button>TK</button>
+          <button>Micheal</button>
+          <button>Maulik</button>
         </div>
       )}
       {gameState === GameState.PLAYING && (

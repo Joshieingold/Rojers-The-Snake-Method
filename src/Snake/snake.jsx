@@ -55,7 +55,7 @@ const Snake = ({ gameOver }) => {
   const handleKeyDown = (e) => {
     const now = Date.now();
     // Throttle rapid keypresses (allow only every 150ms)
-    if (now - lastMoveTime < 150) return;
+    if (now - lastMoveTime < 100) return;
     setLastMoveTime(now);
 
     switch (e.key) {
