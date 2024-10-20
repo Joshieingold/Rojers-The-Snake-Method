@@ -5,10 +5,11 @@ const Snake = ({ gameOver }) => {
   const [food, setFood] = useState({ x: 5, y: 5 });
   const [powerup, setPowerup] = useState({ x: 6, y: 6 });
   const [direction, setDirection] = useState({ x: 1, y: 0 }); // Start moving to the right
-  const [speed, setSpeed] = useState(100); // Speed of snake movement (in ms)
+  const [speed, setSpeed] = useState(120); // Speed of snake movement (in ms)
   const [isGameOver, setIsGameOver] = useState(false);
   const [lastMoveTime, setLastMoveTime] = useState(Date.now()); // To throttle rapid direction changes
   const [score, setScore] = useState(0);
+  const [powerPoints, setPowerPoints] = useState(0);
 
   // Function to move the snake
   const moveSnake = () => {
@@ -35,6 +36,7 @@ const Snake = ({ gameOver }) => {
 
       if (newHead.x === powerup.x && newHead.y === powerup.y) {
         setPowerup(generateNewPowerupPosition());
+        setPowerPoints(prevPowerPoints => prevPowerPoints + 1)
         // Optionally: Increase speed or other power-up effects here
         return [...newSnake, ...prevSnake]; // Add the previous segments to grow the snake
       }
@@ -74,36 +76,48 @@ const Snake = ({ gameOver }) => {
   // Handle keypresses to update the direction, prevent opposite direction changes, and throttle spam
   const handleKeyDown = (e) => {
     const now = Date.now();
-    // Throttle rapid keypresses (allow only every 150ms)
-    if (now - lastMoveTime < 150) return;
+    if (now - lastMoveTime < 100) return; // Throttle rapid keypresses
     setLastMoveTime(now);
-
+  
     switch (e.key) {
       case 'ArrowUp':
-        if (direction.y === 0) setDirection({ x: 0, y: -1 }); // Prevent moving opposite (down to up)
+        if (direction.y === 0) setDirection({ x: 0, y: -1 });
         break;
       case 'ArrowDown':
-        if (direction.y === 0) setDirection({ x: 0, y: 1 }); // Prevent moving opposite (up to down)
+        if (direction.y === 0) setDirection({ x: 0, y: 1 });
         break;
       case 'ArrowLeft':
-        if (direction.x === 0) setDirection({ x: -1, y: 0 }); // Prevent moving opposite (right to left)
+        if (direction.x === 0) setDirection({ x: -1, y: 0 });
         break;
       case 'ArrowRight':
-        if (direction.x === 0) setDirection({ x: 1, y: 0 }); // Prevent moving opposite (left to right)
+        if (direction.x === 0) setDirection({ x: 1, y: 0 });
+        break;
+      case 'q':
+        if (powerPoints >= 10) {
+          setPowerPoints((prevPowerPoints) => prevPowerPoints - 10);
+          setSpeed(80);  // Temporarily increase speed
+          setTimeout(() => setSpeed(120), 10000);  // Reset speed after 3 seconds
+          console.log("I have enough power but I dont know if I can do it.")
+        }
         break;
       default:
         break;
     }
   };
+  
 
   // Use an interval to move the snake at a regular speed
+// Use an interval to move the snake at a regular speed
   useEffect(() => {
+    if (isGameOver) return;
+
     const intervalId = setInterval(() => {
-      if (!isGameOver) moveSnake();
-    }, speed);
+      moveSnake();
+    }, speed);  // Speed changes dynamically
 
     return () => clearInterval(intervalId); // Clean up interval on component unmount
-  }, [snake, direction, isGameOver, speed]);
+  }, [snake, direction, isGameOver, speed]);  // Track `speed` in dependencies
+
 
   // Attach keydown event listener
   useEffect(() => {
@@ -130,6 +144,7 @@ const Snake = ({ gameOver }) => {
       )}
       </div>
       <h3 className="score">Bom-Wipped: {score}</h3>
+      <h3 className='powerbar'>Power Points {powerPoints}</h3>
       </div>
   );
 };
