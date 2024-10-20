@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 const Snake = ({ gameOver }) => {
   const [snake, setSnake] = useState([{ x: 10, y: 10 }]); // Snake starts in the middle
   const [food, setFood] = useState({ x: 5, y: 5 });
+  const [powerup, setPowerup] = useState({ x: 6, y: 6 })
   const [direction, setDirection] = useState({ x: 1, y: 0 }); // Start moving to the right
   const [speed, setSpeed] = useState(100); // Speed of snake movement (in ms)
   const [isGameOver, setIsGameOver] = useState(false);
@@ -27,7 +28,10 @@ const Snake = ({ gameOver }) => {
         setFood(generateNewFoodPosition());
         return [...newSnake, newSnake[newSnake.length - 1]]; // Grow the snake
       }
-
+      if (newHead.x === powerup.x && newHead.y === powerup.y) { //creates new head where powerup was need ot fix!
+        setPowerup(generateNewPowerupPosition());
+        return [...newSnake, newSnake[newSnake.length - 1]]; // NEED TO MAKE THIS ADD TO A POWERUP BAR
+      }
       return newSnake;
     });
   };
@@ -45,6 +49,13 @@ const Snake = ({ gameOver }) => {
 
   // Generate a new random position for the food
   const generateNewFoodPosition = () => {
+    return {
+      x: Math.floor(Math.random() * 20),
+      y: Math.floor(Math.random() * 20),
+    };
+  };
+  // Generate a new random position for the power up
+  const generateNewPowerupPosition = () => {
     return {
       x: Math.floor(Math.random() * 20),
       y: Math.floor(Math.random() * 20),
@@ -97,10 +108,11 @@ const Snake = ({ gameOver }) => {
         Array.from({ length: 20 }, (_, col) => {
           const isSnake = snake.some(s => s.x === col && s.y === row);
           const isFood = food.x === col && food.y === row;
+          const isPowerup = powerup.x === col && powerup.y === row;
           return (
             <div
               key={`${row}-${col}`}
-              className={`cell ${isSnake ? 'snake' : ''} ${isFood ? 'food' : ''}`}
+              className={`cell ${isSnake ? 'snake' : ''} ${isFood ? 'food' : ''} ${isPowerup ?'powerup': ''}`}
             />
           );
         })
