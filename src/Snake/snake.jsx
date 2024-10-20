@@ -10,6 +10,7 @@ const Snake = ({ gameOver }) => {
   const [lastMoveTime, setLastMoveTime] = useState(Date.now()); // To throttle rapid direction changes
   const [score, setScore] = useState(0);
   const [powerPoints, setPowerPoints] = useState(0);
+  let powerUsedCount = 1;
 
   // Function to move the snake
   const moveSnake = () => {
@@ -36,8 +37,9 @@ const Snake = ({ gameOver }) => {
 
       if (newHead.x === powerup.x && newHead.y === powerup.y) {
         setPowerup(generateNewPowerupPosition());
-        setPowerPoints(prevPowerPoints => prevPowerPoints + 1)
-        // Optionally: Increase speed or other power-up effects here
+        // This is where the logic for the power up goes. I want to make it based on the character soon.
+        setPowerPoints(prevPowerPoints => prevPowerPoints + 2)
+        
         return [...newSnake, ...prevSnake]; // Add the previous segments to grow the snake
       }
 
@@ -76,7 +78,7 @@ const Snake = ({ gameOver }) => {
   // Handle keypresses to update the direction, prevent opposite direction changes, and throttle spam
   const handleKeyDown = (e) => {
     const now = Date.now();
-    if (now - lastMoveTime < 100) return; // Throttle rapid keypresses
+    if (now - lastMoveTime < 120) return; // Throttle rapid keypresses
     setLastMoveTime(now);
   
     switch (e.key) {
@@ -92,12 +94,13 @@ const Snake = ({ gameOver }) => {
       case 'ArrowRight':
         if (direction.x === 0) setDirection({ x: 1, y: 0 });
         break;
-      case 'q':
+      case ' ':
         if (powerPoints >= 10) {
           setPowerPoints((prevPowerPoints) => prevPowerPoints - 10);
           setSpeed(80);  // Temporarily increase speed
-          setTimeout(() => setSpeed(120), 10000);  // Reset speed after 3 seconds
-          console.log("I have enough power but I dont know if I can do it.")
+          setTimeout(() => setSpeed(120), 10000);  // Reset speed after 10 seconds
+
+
         }
         break;
       default:

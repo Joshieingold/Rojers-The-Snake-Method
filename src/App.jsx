@@ -60,8 +60,8 @@ function App() {
       )}
       {gameState === GameState.GAME_OVER && (
         <div className="game-over-screen">
-          <h1>Game Over</h1>
-          <h2>You Bom-Wipped: {score} Devices!</h2> {/* Display the final score */}
+          <h1>It is what it is.</h1>
+          <h2>You Bom-Wipped: {score} Devices Today</h2> {/* Display the final score */}
           <button onClick={restartGame}>Play Again</button>
         </div>
       )}
