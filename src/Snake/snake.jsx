@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 const Snake = ({ gameOver }) => {
   const [snake, setSnake] = useState([{ x: 10, y: 10 }]); // Snake starts in the middle
   const [food, setFood] = useState({ x: 5, y: 5 });
-  const [powerup, setPowerup] = useState({ x: 6, y: 6 })
+  const [powerup, setPowerup] = useState({ x: 6, y: 6 });
   const [direction, setDirection] = useState({ x: 1, y: 0 }); // Start moving to the right
   const [speed, setSpeed] = useState(100); // Speed of snake movement (in ms)
   const [isGameOver, setIsGameOver] = useState(false);
   const [lastMoveTime, setLastMoveTime] = useState(Date.now()); // To throttle rapid direction changes
+  const [score, setScore] = useState(0);
 
   // Function to move the snake
   const moveSnake = () => {
@@ -16,23 +17,30 @@ const Snake = ({ gameOver }) => {
         x: prevSnake[0].x + direction.x,
         y: prevSnake[0].y + direction.y,
       };
-      const newSnake = [newHead, ...prevSnake.slice(0, -1)];
 
       if (checkCollision(newHead)) {
         setIsGameOver(true);
-        gameOver(newSnake.length - 1); // Send score to parent
+        gameOver(score); // Send score to parent
         return prevSnake;
       }
 
+      const newSnake = [newHead];
+
       if (newHead.x === food.x && newHead.y === food.y) {
+        setScore(prevScore => prevScore + 1);
         setFood(generateNewFoodPosition());
-        return [...newSnake, newSnake[newSnake.length - 1]]; // Grow the snake
+        // Grow the snake
+        return [...newSnake, ...prevSnake]; // Add the previous segments to grow the snake
       }
-      if (newHead.x === powerup.x && newHead.y === powerup.y) { //creates new head where powerup was need ot fix!
+
+      if (newHead.x === powerup.x && newHead.y === powerup.y) {
         setPowerup(generateNewPowerupPosition());
-        return [...newSnake, newSnake[newSnake.length - 1]]; // NEED TO MAKE THIS ADD TO A POWERUP BAR
+        // Optionally: Increase speed or other power-up effects here
+        return [...newSnake, ...prevSnake]; // Add the previous segments to grow the snake
       }
-      return newSnake;
+
+      // Normal movement (remove last segment)
+      return [...newSnake, ...prevSnake.slice(0, -1)];
     });
   };
 
@@ -54,7 +62,8 @@ const Snake = ({ gameOver }) => {
       y: Math.floor(Math.random() * 20),
     };
   };
-  // Generate a new random position for the power up
+
+  // Generate a new random position for the power-up
   const generateNewPowerupPosition = () => {
     return {
       x: Math.floor(Math.random() * 20),
@@ -66,7 +75,7 @@ const Snake = ({ gameOver }) => {
   const handleKeyDown = (e) => {
     const now = Date.now();
     // Throttle rapid keypresses (allow only every 150ms)
-    if (now - lastMoveTime < 100) return;
+    if (now - lastMoveTime < 150) return;
     setLastMoveTime(now);
 
     switch (e.key) {
@@ -103,6 +112,8 @@ const Snake = ({ gameOver }) => {
   }, [direction]);
 
   return (
+
+      <div className='snakeContent'>
     <div className="game-board">
       {Array.from({ length: 20 }, (_, row) =>
         Array.from({ length: 20 }, (_, col) => {
@@ -112,12 +123,14 @@ const Snake = ({ gameOver }) => {
           return (
             <div
               key={`${row}-${col}`}
-              className={`cell ${isSnake ? 'snake' : ''} ${isFood ? 'food' : ''} ${isPowerup ?'powerup': ''}`}
+              className={`cell ${isSnake ? 'snake' : ''} ${isFood ? 'food' : ''} ${isPowerup ? 'powerup' : ''}`}
             />
           );
         })
       )}
-    </div>
+      </div>
+      <h3 className="score">Bom-Wipped: {score}</h3>
+      </div>
   );
 };
 
