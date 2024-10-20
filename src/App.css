@@ -2,13 +2,14 @@
   display:flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 .App {
   text-align: center;
-  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100vw;
 }
 
 .game-board {
@@ -22,7 +23,7 @@
 .cell {
   width: 20px;
   height: 20px;
-  background-color: #fff;
+  background-color: #000000;
 }
 
 .snake {
@@ -33,13 +34,30 @@
   background-color: red;
 }
 
-.title-screen, .game-over-screen {
-  margin-top: 100px;
-}
+
 
 button {
   padding: 10px 20px;
   font-size: 18px;
   margin-top: 20px;
   cursor: pointer;
+}
+.logo-text {
+  color: red;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logoImg {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./App.css";
 import Snake from "./Snake/snake.jsx";
-
+import Logo from "./assets/pxArt.png";
 const GameState = {
   TITLE: "TITLE",
+  CHARACTERSELECT: "CHARACTERSELECT",
   PLAYING: "PLAYING",
   GAME_OVER: "GAME_OVER"
 };
@@ -15,7 +16,9 @@ function App() {
   const startGame = () => {
     setGameState(GameState.PLAYING);
   };
-
+  const selectCharater = () => {
+    setCharacter("No Character Selected")
+  }
   // Handle Game Over
   const gameOver = () => {
     setGameState(GameState.GAME_OVER);
@@ -30,7 +33,12 @@ function App() {
     <div className="App">
       {gameState === GameState.TITLE && (
         <div className="title-screen">
-          <h1>Snake Game</h1>
+          <div className="title-container">
+            <img src={Logo} className="logoImg"></img>
+            <h1 className="logo-text">Rojers</h1>
+          </div>
+          
+          <h2>The Snake Method</h2>
           <button onClick={startGame}>Start Game</button>
         </div>
       )}
