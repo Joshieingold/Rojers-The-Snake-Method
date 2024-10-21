@@ -29,7 +29,7 @@ const Snake = ({ gameOver }) => {
       const newSnake = [newHead];
 
       if (newHead.x === food.x && newHead.y === food.y) {
-        setScore(prevScore => prevScore + 1);
+        setScore(prevScore => prevScore + 4);
         setFood(generateNewFoodPosition());
         // Grow the snake
         return [...newSnake, ...prevSnake]; // Add the previous segments to grow the snake

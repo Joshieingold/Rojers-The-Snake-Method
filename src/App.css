@@ -79,7 +79,7 @@ button {
   justify-content: center;
 }
 .food {
-  background-image: url('src/assets/barcodeSprite.png');
+  background-image: url('/public/barcodeSprite.png');
   background-size:cover ;
   display: flex;
   justify-content: center;
@@ -87,12 +87,12 @@ button {
   z-index: 100;
 }
 .powerup {
-  background-image: url('src/assets/powerupSprite.png');
+  background-image: url('/public/powerupSprite.png');
   background-size:cover ;
   z-index: 100;
 }
 .snake {
-  background-image: url('src/assets/rojersBoxSprite.png');
+  background-image: url('/public/rojersBoxSprite.png');
   background-size: cover;
   z-index: 99;
 }
