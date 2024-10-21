@@ -84,14 +84,17 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
 }
 .powerup {
   background-image: url('src/assets/powerupSprite.png');
   background-size:cover ;
+  z-index: 100;
 }
 .snake {
   background-image: url('src/assets/rojersBoxSprite.png');
   background-size: cover;
+  z-index: 99;
 }
 .screenContainer {
   border: 2px solid black;
