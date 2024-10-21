@@ -3,7 +3,6 @@ import "./App.css";
 import joshSprite from "./assets/joshSprite.png";
 import maulikSprite from "./assets/maulkSprite.png";
 import michealSprite from "./assets/michealSprite.png";
-import Logo from "./assets/Rojers Logo.png";
 import tkSprite from "./assets/tkSprite.png";
 import Snake from "./Snake/snake.jsx";
 
@@ -42,18 +41,17 @@ function App() {
   return (
     <div className="App">
       {gameState === GameState.TITLE && (
-        <div className="title-screen">
+        <div className="screenContainer">
           <div className="title-container">
-            <img src={Logo} className="logoImg" alt="Logo" />
             <h1 className="logo-text">Rojers</h1>
           </div>
-          <h2>The Snake Method</h2>
+          <h2 className="sub-title">The Snake Method</h2>
           <button onClick={selectCharacter}>Start Game</button>
         </div>
       )}
       {gameState === GameState.CHARACTERSELECT && (
         <div className="screenContainer">
-        <h1>Choose your Bom-Wipper!</h1>
+        <h1 className="title-text">Choose your Bom-Wipper!</h1>
         <div className="charSelContainer">
           <div className="joshContainer">
             <button onClick={startGame} className="charBtn"><img src={joshSprite} className="sprite"></img></button>  
@@ -79,7 +77,7 @@ function App() {
         <Snake gameOver={gameOver} />
       )}
       {gameState === GameState.GAME_OVER && (
-        <div className="game-over-screen">
+        <div className="screenContainer-gameover">
           <h1>It is what it is.</h1>
           <h2>You Bom-Wipped: {score} Devices Today</h2> {/* Display the final score */}
           <button onClick={restartGame}>Play Again</button>

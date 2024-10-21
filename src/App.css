@@ -18,6 +18,7 @@
   grid-template-rows: repeat(20, 20px);    /* 20 rows, each 20px tall */
   gap: 1px;  /* Adds a small gap between cells */
   border: 2px solid #000;
+
 }
 
 .cell {
@@ -27,7 +28,9 @@
 }
 
 
-
+.sub-title {
+  font-size: 4vh;
+}
 
 
 
@@ -44,9 +47,10 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 10vh;
 }
 .logoImg {
-  width: 30%;
+  width: 3%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -70,6 +74,8 @@ button {
 .charSelContainer {
   display: flex;
   gap: 5px;
+  width: 100%;
+  justify-content: center;
 }
 .food {
   background-image: url('src/assets/barcodeSprite.png');
@@ -85,4 +91,25 @@ button {
 .snake {
   background-image: url('src/assets/rojersBoxSprite.png');
   background-size: cover;
+}
+.screenContainer {
+  border: 2px solid black;
+  background:rgba(0, 0, 0, 0.808);
+  width: 1000px;
+  height: 500px;
+
+}
+.title-text {
+  height: 20%;
+  width: 100%;
+}
+.screenContainer-gameover {
+  border: 2px solid black;
+  background:rgba(0, 0, 0, 0.808);
+  width: 700px;
+  height: 300px; 
+
+}
+.snakeContent {
+  background: rgba(0, 0, 0, 0.808);
 }
