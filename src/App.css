@@ -32,8 +32,9 @@
   font-size: 4vh;
 }
 
-
-
+.gameOverButton {
+  margin: 1rem;
+}
 
 button {
   padding: 10px 20px;

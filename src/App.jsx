@@ -80,7 +80,12 @@ function App() {
         <div className="screenContainer-gameover">
           <h1>It is what it is.</h1>
           <h2>You Bom-Wipped: {score} Devices Today</h2> {/* Display the final score */}
-          <button onClick={restartGame}>Play Again</button>
+          <div className="buttonContainer">
+            <button className="gameOverButton" onClick={restartGame}>Play Again</button>
+            <button className="gameOverButton" onClick={selectCharacter}>Change Character</button>
+            <button className="gameOverButton">Leaderboard</button>
+          </div>
+
         </div>
       )}
     </div>
