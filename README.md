@@ -1,18 +1,16 @@
-<h1>Welcome to **Rojers: The Snake Method** </h1>
-    <h2> a fun and engaging Snake game where you get to choose your own character and challenge yourself to beat your high score! The game is built using **React** and features a character selection menu, a playable Snake game, and a game-over screen with options to restart or change characters neatly packed with a warehouse pixel art theme.
-    </h2>
+<h1>Welcome to Rojers: The Snake Method </h1>
+    <h3> A fun and engaging Snake game neatly packed with a warehouse pixel art theme. You get to choose your own character and challenge yourself to beat your high score! The game is built using React and features a character selection menu, a playable Snake game, and a game-over screen with options to restart or change characters.
+    </h3>
 
-## Features
-- **Character Selection**: Choose between three characters: Josh, TK, and Maulik.
-- **Snake Gameplay**: Play the classic Snake game and try to beat your high score.
-- **Score Tracking**: Your final score is displayed after the game is over.
-- **Game Over Menu**: Options to restart the game, change characters, or view the leaderboard (to be implemented).
-
-## Screens
-1. **Title Screen**: The main starting point with a button to start the game.
-2. **Character Select Screen**: Choose your character from Josh, TK, or Maulik.
-3. **Gameplay Screen**: Play the Snake game.
-4. **Game Over Screen**: Shows your score with options to restart or change characters.
+<h1>Features</h1>
+    <h3>Character Selection:</h3>
+        <p>Choose between three characters: Josh, TK, and Maulik.</p> 
+    <h3>Snake Gameplay:</h3>
+        <p>Play the classic Snake game with power-ups and try to beat your high score.</p>
+    <h3>Score Tracking:</h3>
+        <p>Your final score is displayed after the game is over.</p>
+    <h3>Game Over Menu:</h3> 
+        <p>Options to restart the game, change characters, or view the leaderboard (to be implemented).</p>
 
 <h1>Usage</h1>
     <h3>Start the game: </h3> 
