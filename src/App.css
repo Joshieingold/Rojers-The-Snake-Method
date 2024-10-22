@@ -54,18 +54,19 @@ button {
 .charBtn {
   height: 200px;
   width: 200px;
-
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: bottom;
 }
+
 .charSelContainer {
   display: flex;
   gap: 5px;
   width: 100%;
   justify-content: center;
 }
+
 .food {
   background-image: url('/public/barcodeSprite.png');
   background-size:cover ;
@@ -74,27 +75,31 @@ button {
   align-items: center;
   z-index: 100;
 }
+
 .powerup {
   background-image: url('/public/powerupSprite.png');
   background-size:cover ;
   z-index: 100;
 }
+
 .snake {
   background-image: url('/public/rojersBoxSprite.png');
   background-size: cover;
   z-index: 99;
 }
+
 .screenContainer {
   border: 2px solid black;
   background:rgba(0, 0, 0, 0.808);
   width: 1000px;
   height: 500px;
-
 }
+
 .title-text {
   height: 20%;
   width: 100%;
 }
+
 .screenContainer-gameover {
   border: 2px solid black;
   background:rgba(0, 0, 0, 0.808);

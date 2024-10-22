@@ -49,7 +49,7 @@ function App() {
       )}
       {/* Div for Character select. */}
       {gameState === GameState.CHARACTERSELECT && (
-        <div className="screenContainer">
+        <div className="screenContainer"> {/* This is the default contianer for all elements */}
           <h1 className="title-text">Choose your Bom-Wipper!</h1>
           <div className="charSelContainer">
             {/*Container for Josh Character */}
@@ -69,21 +69,21 @@ function App() {
             </div>
           </div>
         </div>
-
       )}
+      {/* Lets the snake know its game over and we can't see it anymore. */}
       {gameState === GameState.PLAYING && (
         <Snake gameOver={gameOver} />
       )}
+      {/* Div for Game Over screen. */}
       {gameState === GameState.GAME_OVER && (
         <div className="screenContainer-gameover">
           <h1>It is what it is.</h1>
-          <h2>You Bom-Wipped: {score} Devices Today</h2> {/* Display the final score */}
+          <h2>You Bom-Wipped: {score} Devices Today</h2>
           <div className="buttonContainer">
             <button className="gameOverButton" onClick={restartGame}>Play Again</button>
             <button className="gameOverButton" onClick={selectCharacter}>Change Character</button>
             <button className="gameOverButton">Leaderboard</button>
           </div>
-
         </div>
       )}
     </div>

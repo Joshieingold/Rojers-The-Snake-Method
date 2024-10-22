@@ -5,13 +5,12 @@ const Snake = ({ gameOver }) => {
   const [snake, setSnake] = useState([{ x: 10, y: 10 }]); // Snakes initial position
   const [food, setFood] = useState({ x: 5, y: 5 }); // Sets position of food
   const [powerup, setPowerup] = useState({ x: 6, y: 6 }); // sets position of power up
-  const [direction, setDirection] = useState({ x: 0, y: 0 }); // Start moving to the right
+  const [direction, setDirection] = useState({ x: 0, y: 0 }); // Start the game without moving.
   const [speed, setSpeed] = useState(120); // Speed of snake movement (in ms)
   const [isGameOver, setIsGameOver] = useState(false); 
   const [lastMoveTime, setLastMoveTime] = useState(Date.now()); // To throttle rapid direction changes
   const [score, setScore] = useState(0); // sets the score
   const [powerPoints, setPowerPoints] = useState(0); // sets the power points
-
   // Function to move the snake
   const moveSnake = () => {
     setSnake((prevSnake) => {
@@ -65,13 +64,11 @@ const Snake = ({ gameOver }) => {
       y: Math.floor(Math.random() * 20),
     };
   };
-
   // Handle keypresses
   const handleKeyDown = (e) => {
     const now = Date.now();
     if (now - lastMoveTime < 120) return; // prevents rapid keypresses at the cost of responsiveness.
     setLastMoveTime(now);
-  
     switch (e.key) {
       case 'ArrowUp':
         if (direction.y === 0) setDirection({ x: 0, y: -1 });
@@ -90,18 +87,13 @@ const Snake = ({ gameOver }) => {
           setPowerPoints((prevPowerPoints) => prevPowerPoints - 10);
           setSpeed(80);  // Temporarily increase speed
           setTimeout(() => setSpeed(120), 10000);  // Reset speed after 10 seconds
-
-
         }
         break;
       default:
         break;
     }
   };
-  
-
-  // Use an interval to move the snake at a regular speed
-// Use an interval to move the snake at a regular speed
+// Move the snake at normal speed.
   useEffect(() => {
     if (isGameOver) return;
 
@@ -109,19 +101,16 @@ const Snake = ({ gameOver }) => {
       moveSnake();
     }, speed);  // Speed changes dynamically
 
-    return () => clearInterval(intervalId); // Clean up interval on component unmount
+    return () => clearInterval(intervalId); // Clean up interval
   }, [snake, direction, isGameOver, speed]);  // Track `speed` in dependencies
-
-
-  // Attach keydown event listener
+  // Keydown listener for movements.
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [direction]);
-
+  // The snake structure
   return (
-
-      <div className='snakeContent'>
+      <div className='snakeContent'> 
     <div className="game-board">
       {Array.from({ length: 20 }, (_, row) =>
         Array.from({ length: 20 }, (_, col) => {
@@ -142,5 +131,4 @@ const Snake = ({ gameOver }) => {
       </div>
   );
 };
-
 export default Snake;
