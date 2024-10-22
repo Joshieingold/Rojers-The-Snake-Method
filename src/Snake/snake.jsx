@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
 const Snake = ({ gameOver }) => {
-  const [snake, setSnake] = useState([{ x: 10, y: 10 }]); // Snake starts in the middle
-  const [food, setFood] = useState({ x: 5, y: 5 });
-  const [powerup, setPowerup] = useState({ x: 6, y: 6 });
-  const [direction, setDirection] = useState({ x: 1, y: 0 }); // Start moving to the right
+  // Global Variables
+  const [snake, setSnake] = useState([{ x: 10, y: 10 }]); // Snakes initial position
+  const [food, setFood] = useState({ x: 5, y: 5 }); // Sets position of food
+  const [powerup, setPowerup] = useState({ x: 6, y: 6 }); // sets position of power up
+  const [direction, setDirection] = useState({ x: 0, y: 0 }); // Start moving to the right
   const [speed, setSpeed] = useState(120); // Speed of snake movement (in ms)
-  const [isGameOver, setIsGameOver] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false); 
   const [lastMoveTime, setLastMoveTime] = useState(Date.now()); // To throttle rapid direction changes
-  const [score, setScore] = useState(0);
-  const [powerPoints, setPowerPoints] = useState(0);
-  let powerUsedCount = 1;
+  const [score, setScore] = useState(0); // sets the score
+  const [powerPoints, setPowerPoints] = useState(0); // sets the power points
 
   // Function to move the snake
   const moveSnake = () => {
@@ -19,35 +19,28 @@ const Snake = ({ gameOver }) => {
         x: prevSnake[0].x + direction.x,
         y: prevSnake[0].y + direction.y,
       };
-
+      // Checks if snake hits a wall or itself.
       if (checkCollision(newHead)) {
-        setIsGameOver(true);
+        setIsGameOver(true); // Send gamestate to parent
         gameOver(score); // Send score to parent
         return prevSnake;
       }
-
       const newSnake = [newHead];
-
+      // Action for collision with food.
       if (newHead.x === food.x && newHead.y === food.y) {
-        setScore(prevScore => prevScore + 4);
-        setFood(generateNewFoodPosition());
-        // Grow the snake
+        setScore(prevScore => prevScore + 4); // Get 4 points
+        setFood(generateNewFoodPosition()); // New food appears somewhere.
         return [...newSnake, ...prevSnake]; // Add the previous segments to grow the snake
       }
-
+      // Action for collision with power-up.
       if (newHead.x === powerup.x && newHead.y === powerup.y) {
-        setPowerup(generateNewPowerupPosition());
-        // This is where the logic for the power up goes. I want to make it based on the character soon.
-        setPowerPoints(prevPowerPoints => prevPowerPoints + 2)
-        
+        setPowerup(generateNewPowerupPosition()); // Spawns new power up somwhere.
+        setPowerPoints(prevPowerPoints => prevPowerPoints + 2) // This is where the logic for the power up goes. I want to make it based on the character soon.
         return [...newSnake, ...prevSnake]; // Add the previous segments to grow the snake
       }
-
-      // Normal movement (remove last segment)
-      return [...newSnake, ...prevSnake.slice(0, -1)];
+      return [...newSnake, ...prevSnake.slice(0, -1)]; // Normal movement (remove last segment)
     });
   };
-
   // Check for collision with walls or snake itself
   const checkCollision = (head) => {
     // Check wall collision
@@ -58,7 +51,6 @@ const Snake = ({ gameOver }) => {
     }
     return false;
   };
-
   // Generate a new random position for the food
   const generateNewFoodPosition = () => {
     return {
@@ -66,7 +58,6 @@ const Snake = ({ gameOver }) => {
       y: Math.floor(Math.random() * 20),
     };
   };
-
   // Generate a new random position for the power-up
   const generateNewPowerupPosition = () => {
     return {
@@ -75,10 +66,10 @@ const Snake = ({ gameOver }) => {
     };
   };
 
-  // Handle keypresses to update the direction, prevent opposite direction changes, and throttle spam
+  // Handle keypresses
   const handleKeyDown = (e) => {
     const now = Date.now();
-    if (now - lastMoveTime < 120) return; // Throttle rapid keypresses
+    if (now - lastMoveTime < 120) return; // prevents rapid keypresses at the cost of responsiveness.
     setLastMoveTime(now);
   
     switch (e.key) {
