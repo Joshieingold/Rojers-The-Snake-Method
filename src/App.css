@@ -1,9 +1,3 @@
-:root {
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
 .App {
   text-align: center;
   display: flex;
@@ -18,7 +12,6 @@
   grid-template-rows: repeat(20, 20px);    /* 20 rows, each 20px tall */
   gap: 1px;  /* Adds a small gap between cells */
   border: 2px solid #000;
-
 }
 
 .cell {
@@ -26,7 +19,6 @@
   height: 20px;
   background-color: #00000075;
 }
-
 
 .sub-title {
   font-size: 4vh;
@@ -42,6 +34,7 @@ button {
   margin-top: 20px;
   cursor: pointer;
 }
+
 .logo-text {
   color: red;
   text-align: center;
@@ -50,12 +43,7 @@ button {
   align-items: center;
   font-size: 10vh;
 }
-.logoImg {
-  width: 3%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 .title-container {
   display: flex;
   justify-content: center;
