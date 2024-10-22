@@ -1,8 +1,47 @@
-# React + Vite
+<h1>Welcome to **Rojers: The Snake Method** </h1>
+    <h2> a fun and engaging Snake game where you get to choose your own character and challenge yourself to beat your high score! The game is built using **React** and features a character selection menu, a playable Snake game, and a game-over screen with options to restart or change characters neatly packed with a warehouse pixel art theme.
+    </h2>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
+- **Character Selection**: Choose between three characters: Josh, TK, and Maulik.
+- **Snake Gameplay**: Play the classic Snake game and try to beat your high score.
+- **Score Tracking**: Your final score is displayed after the game is over.
+- **Game Over Menu**: Options to restart the game, change characters, or view the leaderboard (to be implemented).
 
-Currently, two official plugins are available:
+## Screens
+1. **Title Screen**: The main starting point with a button to start the game.
+2. **Character Select Screen**: Choose your character from Josh, TK, or Maulik.
+3. **Gameplay Screen**: Play the Snake game.
+4. **Game Over Screen**: Shows your score with options to restart or change characters.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<h1>Usage</h1>
+    <h3>Start the game: </h3> 
+        <p>Click on the Start Game button to select your character and start playing.</p>
+    <h3>Gameplay: </h3> 
+        <p>Control the snake using the arrow keys. The game will continue until the snake hits the wall or its own tail.</p>
+    <h3>Game Over:</h3>  
+        <p>When the game is over, you'll see your score and have options to restart or change characters.</p>
+
+<h1>File Structure</h1>
+<h3>App.js:</h3>  
+    <p>Main component of the application. Manages game states (Title, Character Select, Playing, Game Over).</p>
+<h3>Snake Component:</h3>  
+    <p>The Snake game logic and rendering are handled here.</p>
+<h3>Assets:</h3>  
+    <p>Images for character sprites (Josh, TK, Maulik).</p>
+
+<h1>Future Enhancements</h1>
+    <h3>Leaderboard:</h3> 
+        <p>Display top scores from previous games.</p>
+    <h3>Mobile Controls: </h3> 
+        <p>Add better support for mobile gestures and controls.</p>
+    <h3>Power-ups:</h3> 
+        <p>Add more power-ups for the snake game to make it more interesting.</p>
+
+<h1>Technologies Used</h1>
+    <h3>React:</h3>
+        <p>Frontend library used to build the application.</p>
+    <h3>JavaScript (ES6+):</h3>
+        <p>For game logic and state management.</p>
+    <h3>CSS:</h3>
+        <p>For styling the application.</p>
