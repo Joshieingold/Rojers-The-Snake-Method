@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const Snake = ({ gameOver }) => {
+const Snake = ({ character, gameOver }) => {
   // Global Variables
   const [snake, setSnake] = useState([{ x: 10, y: 10 }]); // Snakes initial position
   const [food, setFood] = useState({ x: 5, y: 5 }); // Sets position of food
@@ -11,8 +11,43 @@ const Snake = ({ gameOver }) => {
   const [lastMoveTime, setLastMoveTime] = useState(Date.now()); // To throttle rapid direction changes
   const [score, setScore] = useState(0); // sets the score
   const [powerPoints, setPowerPoints] = useState(0); // sets the power points
+  const [barcodeScore, setBarcodeScore] = useState(4);
+  const [powerScore, setPowerScore] = useState(2)
+  const [isJoshPowerActive, setIsJoshPowerActive] = useState(false);
+  const [isTKPowerActive, setIsTKPowerActive] = useState(false)
+  const [isMaulikPowerActive, setIsMaulikPowerActive] = useState(false)
   // Function to move the snake
   const moveSnake = () => {
+    // Global changes for powerups
+      
+      // For Josh
+    if (isJoshPowerActive) {
+      setSpeed(80);
+      setBarcodeScore(8)
+    }
+    else {
+      setSpeed(120);
+      setBarcodeScore(4)
+    }
+      // For Maulik
+    if (isMaulikPowerActive) {
+      setSpeed(80);
+      setPowerScore(0);
+    }
+    else {
+      setSpeed(120);
+      setPowerScore(2);
+    }
+      // For TK
+    if (isTKPowerActive) {
+      setSpeed(80);
+    }
+    else {
+      setSpeed(120);
+    }
+    // End of global changes
+    
+    
     setSnake((prevSnake) => {
       const newHead = {
         x: prevSnake[0].x + direction.x,
@@ -27,15 +62,21 @@ const Snake = ({ gameOver }) => {
       const newSnake = [newHead];
       // Action for collision with food.
       if (newHead.x === food.x && newHead.y === food.y) {
-        setScore(prevScore => prevScore + 4); // Get 4 points
+        setScore(prevScore => prevScore + barcodeScore); // Get 4 points
         setFood(generateNewFoodPosition()); // New food appears somewhere.
         return [...newSnake, ...prevSnake]; // Add the previous segments to grow the snake
       }
       // Action for collision with power-up.
       if (newHead.x === powerup.x && newHead.y === powerup.y) {
-        setPowerup(generateNewPowerupPosition()); // Spawns new power up somwhere.
-        setPowerPoints(prevPowerPoints => prevPowerPoints + 2) // This is where the logic for the power up goes. I want to make it based on the character soon.
-        return [...newSnake, ...prevSnake]; // Add the previous segments to grow the snake
+        if (isTKPowerActive) {
+          setScore(prevScore => prevScore + (barcodeScore + 1));
+          setPowerup(generateNewPowerupPosition());
+        }
+        else {
+          setPowerup(generateNewPowerupPosition()); // Spawns new power up somwhere.
+          setPowerPoints(prevPowerPoints => prevPowerPoints + powerScore) // This is where the logic for the power up goes. I want to make it based on the character soon.
+          return [...newSnake, ...prevSnake]; // Add the previous segments to grow the snake
+        }
       }
       return [...newSnake, ...prevSnake.slice(0, -1)]; // Normal movement (remove last segment)
     });
@@ -43,11 +84,13 @@ const Snake = ({ gameOver }) => {
   // Check for collision with walls or snake itself
   const checkCollision = (head) => {
     // Check wall collision
-    if (head.x < 0 || head.x >= 20 || head.y < 0 || head.y >= 20) return true;
-    // Check self-collision
-    for (let i = 1; i < snake.length; i++) {
-      if (snake[i].x === head.x && snake[i].y === head.y) return true;
-    }
+      if (!isMaulikPowerActive) {
+        if (head.x < 0 || head.x >= 20 || head.y < 0 || head.y >= 20) return true;
+        // Check self-collision
+        for (let i = 1; i < snake.length; i++) {
+          if (snake[i].x === head.x && snake[i].y === head.y) return true;
+        }
+      }
     return false;
   };
   // Generate a new random position for the food
@@ -72,6 +115,7 @@ const Snake = ({ gameOver }) => {
     switch (e.key) {
       case 'ArrowUp':
         if (direction.y === 0) setDirection({ x: 0, y: -1 });
+        console.log("Youre playing as " + String(character))
         break;
       case 'ArrowDown':
         if (direction.y === 0) setDirection({ x: 0, y: 1 });
@@ -85,14 +129,28 @@ const Snake = ({ gameOver }) => {
       case ' ':
         if (powerPoints >= 10) {
           setPowerPoints((prevPowerPoints) => prevPowerPoints - 10);
-          setSpeed(80);  // Temporarily increase speed
-          setTimeout(() => setSpeed(120), 10000);  // Reset speed after 10 seconds
+          if (character === "TK") {
+            setIsTKPowerActive(true);
+            setTimeout(() => setIsTKPowerActive(false), 10000); // Power-up is disabled after 10 seconds
+          }
+          if (character == "Josh") {
+            setIsJoshPowerActive(true)
+            setTimeout(() => setIsJoshPowerActive(false), 10000);  // Power-up is disabled after 10 seconds
+          }
+          if (character == "Maulik") {
+            setIsMaulikPowerActive(true);
+            setTimeout(() => setIsMaulikPowerActive(false), 5000);
+          }
         }
         break;
       default:
         break;
     }
   };
+
+
+  // Contains the power-ups for Maulik
+
 // Move the snake at normal speed.
   useEffect(() => {
     if (isGameOver) return;

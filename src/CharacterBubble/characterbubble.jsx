@@ -1,0 +1,1 @@
+import "./characterbubble.css";
