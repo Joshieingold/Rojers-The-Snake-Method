@@ -42,6 +42,19 @@ function App() {
   const restartGame = () => {
     setGameState(GameState.PLAYING);
   };
+  
+  const getCharacterSprite = () => {
+    switch (character) {
+      case "Josh":
+        return joshSprite;
+      case "Maulik":
+        return maulikSprite;
+      case "TK":
+        return tkSprite;
+      default:
+        return null;
+    }
+  };
 
   // All the HTML based on GameState
   return (
@@ -87,7 +100,14 @@ function App() {
 
       {/* Play the game */}
       {gameState === GameState.PLAYING && (
-        <Snake character={character} gameOver={gameOver} />
+        <div className="gameContainer">
+          <Snake character={character} gameOver={gameOver} />
+          <div className="gameCharContainer">
+            <p className="charNameContainer">{character}</p>
+            <img src={getCharacterSprite()} alt={character} className="selectedCharacterSprite" />
+            
+          </div>
+        </div>
       )}
 
       {/* Div for Game Over screen */}

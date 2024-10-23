@@ -20,33 +20,26 @@ const Snake = ({ character, gameOver }) => {
   const moveSnake = () => {
     // Global changes for powerups
       
-      // For Josh
-    if (isJoshPowerActive) {
-      setSpeed(80);
-      setBarcodeScore(8)
-    }
-    else {
-      setSpeed(120);
-      setBarcodeScore(4)
-    }
-      // For Maulik
-    if (isMaulikPowerActive) {
-      setSpeed(80);
-      setPowerScore(0);
-    }
-    else {
-      setSpeed(120);
-      setPowerScore(2);
-    }
-      // For TK
-    if (isTKPowerActive) {
-      setSpeed(80);
-    }
-    else {
-      setSpeed(120);
-    }
-    // End of global changes
+    let newSpeed = 120;  // Default speed
+    let newBarcodeScore = 4;  // Default score for barcode
+    let newPowerScore = 2;  // Default power score
     
+    // Check active power-ups and modify the speed and scores accordingly
+    if (isJoshPowerActive) {
+      newSpeed = 80;
+      newBarcodeScore = 8;
+    } 
+    else if (isMaulikPowerActive) {
+      newSpeed = 40;
+      newPowerScore = 0;
+    } 
+    else if (isTKPowerActive) {
+      newSpeed = 80;
+    }
+  
+    setSpeed(newSpeed);
+    setBarcodeScore(newBarcodeScore);
+    setPowerScore(newPowerScore);
     
     setSnake((prevSnake) => {
       const newHead = {
@@ -115,7 +108,6 @@ const Snake = ({ character, gameOver }) => {
     switch (e.key) {
       case 'ArrowUp':
         if (direction.y === 0) setDirection({ x: 0, y: -1 });
-        console.log("Youre playing as " + String(character))
         break;
       case 'ArrowDown':
         if (direction.y === 0) setDirection({ x: 0, y: 1 });
@@ -135,7 +127,7 @@ const Snake = ({ character, gameOver }) => {
           }
           if (character == "Josh") {
             setIsJoshPowerActive(true)
-            setTimeout(() => setIsJoshPowerActive(false), 10000);  // Power-up is disabled after 10 seconds
+            setTimeout(() => setIsJoshPowerActive(false), 10000);
           }
           if (character == "Maulik") {
             setIsMaulikPowerActive(true);
@@ -168,25 +160,32 @@ const Snake = ({ character, gameOver }) => {
   }, [direction]);
   // The snake structure
   return (
-      <div className='snakeContent'> 
-    <div className="game-board">
-      {Array.from({ length: 20 }, (_, row) =>
-        Array.from({ length: 20 }, (_, col) => {
-          const isSnake = snake.some(s => s.x === col && s.y === row);
-          const isFood = food.x === col && food.y === row;
-          const isPowerup = powerup.x === col && powerup.y === row;
-          return (
-            <div
-              key={`${row}-${col}`}
-              className={`cell ${isSnake ? 'snake' : ''} ${isFood ? 'food' : ''} ${isPowerup ? 'powerup' : ''}`}
-            />
-          );
-        })
-      )}
+    <div className='snakeContent'> 
+      <div className="game-board">
+        {Array.from({ length: 20 }, (_, row) =>
+          Array.from({ length: 20 }, (_, col) => {
+            const isSnake = snake.some(s => s.x === col && s.y === row);
+            const isFood = food.x === col && food.y === row;
+            const isPowerup = powerup.x === col && powerup.y === row;
+            
+            // Add a special class if any power-up is active
+            const isPowerSnake = isJoshPowerActive || isTKPowerActive || isMaulikPowerActive;
+            
+            return (
+              <div
+                key={`${row}-${col}`}
+                className={`cell 
+                  ${isSnake ? (isPowerSnake ? 'snake-power' : 'snake') : ''} 
+                  ${isFood ? 'food' : ''} 
+                  ${isPowerup ? 'powerup' : ''}`}
+              />
+            );
+          })
+        )}
       </div>
       <h3 className="score">Bom-Wipped: {score}</h3>
       <h3 className='powerbar'>Power Points {powerPoints}</h3>
-      </div>
+    </div>
   );
 };
 export default Snake;
