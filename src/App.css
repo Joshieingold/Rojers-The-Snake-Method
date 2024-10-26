@@ -8,9 +8,9 @@
 
 .game-board {
   display: grid;
-  grid-template-columns: repeat(20, 20px); /* 20 columns, each 20px wide */
-  grid-template-rows: repeat(20, 20px);    /* 20 rows, each 20px tall */
-  gap: 1px;  /* Adds a small gap between cells */
+  grid-template-columns: repeat(20, 20px); 
+  grid-template-rows: repeat(20, 20px);    
+  gap: 1px;  
   border: 2px solid #000;
 }
 
@@ -26,6 +26,13 @@
 
 .gameOverButton {
   margin: 1rem;
+  background-color: #ff0000;
+  transition: 0.1s;
+  border: 1px solid black;
+}
+.gameOverButton:hover {
+  background-color: #410000;
+  border: 1px solid rgba(255, 255, 255, 0.288) ;
 }
 
 button {
@@ -33,6 +40,7 @@ button {
   font-size: 18px;
   margin-top: 20px;
   cursor: pointer;
+  
 }
 
 .logo-text {
@@ -103,8 +111,8 @@ button {
 .screenContainer-gameover {
   border: 2px solid black;
   background:rgba(0, 0, 0, 0.808);
-  width: 700px;
-  height: 300px; 
+  width: 80vw;
+  height: 75vh; 
 
 }
 .snakeContent {
@@ -130,4 +138,105 @@ button {
   background-image: url('/public/rojersBoxPowerSprite.png');
   background-size: cover;
   z-index: 99;
+}
+
+.screenContainer ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.screenContainer li {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.usernameInput {
+  margin-top: 2%;
+  padding: 10px;
+  width: 200px; 
+  font-size: 20px; 
+  font-family: "tiny5";
+  margin-bottom: 3%;
+  background-color: #000000e1;
+  border: none;
+  border-radius: 0%;
+}
+
+/* Leaderboard Container Styles */
+.leaderboardContainer {
+  padding: 20px;
+  background-color: #000000e0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+/* Leaderboard Header Styles */
+.leaderboardHeader {
+  top: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background-color: #ff0000;
+  color: white; 
+  padding: 10px;
+  border-radius: 8px; 
+  margin-bottom: 10px; 
+  font-weight: bold; 
+  position: sticky;
+}
+
+/* Leaderboard Entry Styles */
+.leaderboardEntry {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  padding: 10px;
+  border-bottom: 1px solid #ff0000;
+  align-items: center; 
+}
+
+
+.leaderboardEntry:nth-child(even) {
+  background-color: #000000d0; 
+}
+
+.leaderboardEntry:nth-child(odd) {
+  background-color: #000000d0; 
+}
+
+
+.backButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #ff0000; 
+  color: rgb(255, 255, 255); 
+  border: 1 px solid red;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px; 
+  transition: background-color 0.1s; 
+}
+
+.backButton:hover {
+  background-color: #410000; 
+  border: 1px solid white;
+}
+.leaderboard {
+  max-height: 300px; 
+  overflow-y: auto; 
+  margin-bottom: 20px; 
+  border-radius: 8px; 
+  position: relative; 
+}
+.homeBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ff00007a;
+
+}
+.homeButtonContainer {
+  display: grid;
+  justify-content: center;
+}
+.homeBtn:hover {
+  background-color: #410000;
+  border: 1px solid rgba(255, 255, 255, 0.288) ;
 }
