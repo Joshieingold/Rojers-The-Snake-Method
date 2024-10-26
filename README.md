@@ -10,7 +10,11 @@
     <h3>Score Tracking:</h3>
         <p>Your final score is displayed after the game is over.</p>
     <h3>Game Over Menu:</h3> 
-        <p>Options to restart the game, change characters, or view the leaderboard (to be implemented).</p>
+        <p>Options to restart the game, change characters, or view the leaderboard.</p>
+    <h3>Power-ups:</h3> 
+        <p>Add more power-ups for the snake game to make it more interesting.</p>
+    <h3>Leaderboard:</h3> 
+        <p>Display top scores from previous games in a global leaderboard.</p>
 
 <h1>Usage</h1>
     <h3>Start the game: </h3> 
@@ -29,12 +33,9 @@
     <p>Images for character sprites (Josh, TK, Maulik).</p>
 
 <h1>Future Enhancements</h1>
-    <h3>Leaderboard:</h3> 
-        <p>Display top scores from previous games.</p>
     <h3>Mobile Controls: </h3> 
         <p>Add better support for mobile gestures and controls.</p>
-    <h3>Power-ups:</h3> 
-        <p>Add more power-ups for the snake game to make it more interesting.</p>
+
 
 <h1>Technologies Used</h1>
     <h3>React:</h3>
