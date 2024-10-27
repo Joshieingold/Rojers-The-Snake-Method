@@ -1,5 +1,7 @@
+// Imports
 import React, { useEffect, useState } from 'react';
 
+// Main function of the game loop.
 const Snake = ({ character, gameOver }) => {
   // Global Variables
   const [snake, setSnake] = useState([{ x: 10, y: 10 }]); // Snakes initial position
@@ -16,27 +18,29 @@ const Snake = ({ character, gameOver }) => {
   const [isJoshPowerActive, setIsJoshPowerActive] = useState(false);
   const [isTKPowerActive, setIsTKPowerActive] = useState(false)
   const [isMaulikPowerActive, setIsMaulikPowerActive] = useState(false)
+  
   // Function to move the snake
   const moveSnake = () => {
+
     // Global changes for powerups
-      
-    let newSpeed = 120;  // Default speed
+    let newSpeed = 100;  // Default speed
     let newBarcodeScore = 4;  // Default score for barcode
     let newPowerScore = 2;  // Default power score
     
     // Check active power-ups and modify the speed and scores accordingly
     if (isJoshPowerActive) {
-      newSpeed = 80;
+      newSpeed = 90;
       newBarcodeScore = 8;
     } 
     else if (isMaulikPowerActive) {
-      newSpeed = 40;
+      newSpeed = 90;
       newPowerScore = 0;
     } 
     else if (isTKPowerActive) {
-      newSpeed = 80;
+      newSpeed = 90;
     }
-  
+    
+    // Sets the Globals at every step.
     setSpeed(newSpeed);
     setBarcodeScore(newBarcodeScore);
     setPowerScore(newPowerScore);
@@ -46,6 +50,7 @@ const Snake = ({ character, gameOver }) => {
         x: prevSnake[0].x + direction.x,
         y: prevSnake[0].y + direction.y,
       };
+
       // Checks if snake hits a wall or itself.
       if (checkCollision(newHead)) {
         setIsGameOver(true); // Send gamestate to parent
@@ -53,6 +58,7 @@ const Snake = ({ character, gameOver }) => {
         return prevSnake;
       }
       const newSnake = [newHead];
+
       // Action for collision with food.
       if (newHead.x === food.x && newHead.y === food.y) {
         setScore(prevScore => prevScore + barcodeScore); // Get 4 points
@@ -62,22 +68,22 @@ const Snake = ({ character, gameOver }) => {
       // Action for collision with power-up.
       if (newHead.x === powerup.x && newHead.y === powerup.y) {
         if (isTKPowerActive) {
-          setScore(prevScore => prevScore + (barcodeScore + 1));
-          setPowerup(generateNewPowerupPosition());
+          setScore(prevScore => prevScore + (barcodeScore + 2)); // During power-up, power ups are worth barcodes + 2
+          setPowerup(generateNewPowerupPosition()); // Spawns new power up somwhere.
         }
         else {
           setPowerup(generateNewPowerupPosition()); // Spawns new power up somwhere.
           setPowerPoints(prevPowerPoints => prevPowerPoints + powerScore) // This is where the logic for the power up goes. I want to make it based on the character soon.
-          return [...newSnake, ...prevSnake]; // Add the previous segments to grow the snake
         }
       }
       return [...newSnake, ...prevSnake.slice(0, -1)]; // Normal movement (remove last segment)
     });
   };
+
   // Check for collision with walls or snake itself
   const checkCollision = (head) => {
     // Check wall collision
-      if (!isMaulikPowerActive) {
+      if (!isMaulikPowerActive) { // Maulik cannot colide with things during power-up
         if (head.x < 0 || head.x >= 20 || head.y < 0 || head.y >= 20) return true;
         // Check self-collision
         for (let i = 1; i < snake.length; i++) {
@@ -86,6 +92,7 @@ const Snake = ({ character, gameOver }) => {
       }
     return false;
   };
+
   // Generate a new random position for the food
   const generateNewFoodPosition = () => {
     return {
@@ -93,6 +100,7 @@ const Snake = ({ character, gameOver }) => {
       y: Math.floor(Math.random() * 20),
     };
   };
+  
   // Generate a new random position for the power-up
   const generateNewPowerupPosition = () => {
     return {
@@ -100,6 +108,7 @@ const Snake = ({ character, gameOver }) => {
       y: Math.floor(Math.random() * 20),
     };
   };
+  
   // Handle keypresses
   const handleKeyDown = (e) => {
     const now = Date.now();

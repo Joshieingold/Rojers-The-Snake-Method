@@ -19,6 +19,7 @@ const GameState = {
 
 // Main function of the game
 function App() {
+  // GLOBAL VARIABLES // 
   const [gameState, setGameState] = useState(GameState.TITLE);
   const [score, setScore] = useState(0);
   const [character, setCharacter] = useState(null);
@@ -217,7 +218,7 @@ function App() {
           </div>
         </div>
       )}
-      
+
       {/* Div for Leaderboard */}
       {gameState === GameState.LEADERBOARD && (
         <div className="screenContainer leaderboardContainer">
