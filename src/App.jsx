@@ -1,3 +1,4 @@
+// Imports
 import { collection, doc, getDocs, limit, orderBy, query, setDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import "./App.css";
@@ -5,9 +6,9 @@ import joshSprite from "./assets/joshSprite.png";
 import maulikSprite from "./assets/maulkSprite.png";
 import tkSprite from "./assets/tkSprite.png";
 import { db } from "./firebase";
-
 import Snake from "./Snake/snake.jsx";
 
+// The game states.
 const GameState = {
   TITLE: "TITLE",
   CHARACTERSELECT: "CHARACTERSELECT",
@@ -16,25 +17,26 @@ const GameState = {
   LEADERBOARD: "LEADERBOARD"
 };
 
-// Main function of the app
+// Main function of the game
 function App() {
   const [gameState, setGameState] = useState(GameState.TITLE);
   const [score, setScore] = useState(0);
   const [character, setCharacter] = useState(null);
   const [leaderboard, setLeaderboard] = useState([]); 
   const [username, setUsername] = useState("");
-  const [audio] = useState(new Audio("./public/snakeTheme.mp3")); 
+  const [audio] = useState(new Audio("src/assets/snakeTheme.mp3")); 
 
+  // MUSIC //
   useEffect(() => {
     audio.loop = true; // Loop the audio
     audio.volume = 0.5; // Set the volume to 50%
 
-    // Optional: Add error handling
+    // Prints an error in the console if the music doesnt load
     audio.addEventListener('error', () => {
-      console.error("Error loading audio");
+      console.error("Music did not load.");
     });
 
-    // Cleanup on component unmount
+    // Cleanup for music
     return () => {
       audio.pause();
       audio.currentTime = 0; // Reset audio
@@ -46,67 +48,10 @@ function App() {
       console.error("Playback failed:", error);
     });
   };
+  
+  // GENERAL FUNCTIONS //
 
-  // Function to submit a new score
-  const submitScore = async (username, score, character) => {
-    try {
-      const scoreRef = doc(db, "leaderboard", username); 
-      await setDoc(scoreRef, { username: username, score: score, character: character }); 
-      console.log("Score submitted successfully!");
-    } catch (error) {
-      console.error("Error submitting score: ", error);
-    }
-  };
-
-  const handleScoreSubmission = async () => {
-    if (username.trim() === "") {
-      alert("Please enter a username to submit your score.");
-      return; 
-    }
-    await submitScore(username, score, character); 
-    loadLeaderboard();
-  };
-
-  const skipScoreSubmission = () => {
-    setUsername(""); 
-    setGameState(GameState.TITLE);
-  };
-
-  async function getLeaderboard() {
-    const q = query(collection(db, "leaderboard"), orderBy("score", "desc"), limit(10));
-    const snapshot = await getDocs(q);
-    return snapshot.docs.map(doc => doc.data());
-  }
-
-  const loadLeaderboard = async () => {
-    const data = await getLeaderboard();
-    setLeaderboard(data);
-    setGameState(GameState.LEADERBOARD);
-  };
-
-  const gameOver = (finalScore) => {
-    setScore(finalScore);
-    setGameState(GameState.GAME_OVER); 
-  };
-
-  // Handle Game Start
-  const startGame = (selectedCharacter) => {
-    setScore(0); // Reset score when starting a new game
-    setCharacter(selectedCharacter); // Set selected character
-    setGameState(GameState.PLAYING);
-    playMusic(); // Play music when the game starts
-  };
-
-  // Handles character select link
-  const selectCharacter = () => {
-    setGameState(GameState.CHARACTERSELECT);
-  };
-
-  // Handle Restart Game
-  const restartGame = () => {
-    setGameState(GameState.PLAYING);
-  };
-
+  // Finds the character being used for use of the image on the gameplay page.
   const getCharacterSprite = () => {
     switch (character) {
       case "Josh":
@@ -120,7 +65,76 @@ function App() {
     }
   };
 
-  // All the HTML based on GameState
+  // Function to submit a new score to global leaderboard
+  const submitScore = async (username, score, character) => {
+    try {
+      const submissionId = `${username}_${Date.now()}`;
+      const scoreRef = doc(db, "leaderboard", submissionId);    
+      await setDoc(scoreRef, { username: username, score: score, character: character }); 
+      console.log("Score submitted successfully!");
+    } catch (error) {
+      console.error("Error submitting score: ", error);
+    }
+  };
+
+  // Handles skipping the submission and returning to title
+  const skipScoreSubmission = () => {
+    setUsername(""); 
+    setGameState(GameState.TITLE);
+  };
+
+  // Gets the data from the global leaderboard.
+  async function getLeaderboard() {
+    const q = query(collection(db, "leaderboard"), orderBy("score", "desc"), limit(10));
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => doc.data());
+  }
+  
+  // Uses the leaderboard data and puts it as a useable variable. 
+  const loadLeaderboard = async () => {
+    const data = await getLeaderboard();
+    setLeaderboard(data);
+    setGameState(GameState.LEADERBOARD);
+  };
+  
+  // Main function that is called on button click.
+  const handleScoreSubmission = async () => {
+    if (username.trim() === "") {
+      alert("Please enter a username to submit your score.");
+      return; 
+    }
+    await submitScore(username, score, character); 
+    loadLeaderboard();
+  };
+  
+  // GAMESTATES //
+
+  // Handle Game over
+  const gameOver = (finalScore) => {
+    setScore(finalScore);
+    setGameState(GameState.GAME_OVER); 
+  };
+
+  // Handle Game Start
+  const startGame = (selectedCharacter) => {
+    setScore(0); // Reset score when starting a new game
+    setCharacter(selectedCharacter); // Set selected character
+    setGameState(GameState.PLAYING);
+    playMusic(); // Play music when the game starts
+  };
+
+  // Handles character select
+  const selectCharacter = () => {
+    setGameState(GameState.CHARACTERSELECT);
+  };
+
+  // Handle Restart Game
+  const restartGame = () => {
+    setGameState(GameState.PLAYING);
+  };
+
+  // All the HTML based on GameState //
+
   return (
     <div className="App"> 
       {/* Div for title screen */}
@@ -163,7 +177,7 @@ function App() {
         </div>
       )}
 
-      {/* Play the game */}
+      {/* Div for Playing the game */}
       {gameState === GameState.PLAYING && (
         <div className="gameContainer">
           <Snake character={character} gameOver={gameOver} />
@@ -203,7 +217,8 @@ function App() {
           </div>
         </div>
       )}
-
+      
+      {/* Div for Leaderboard */}
       {gameState === GameState.LEADERBOARD && (
         <div className="screenContainer leaderboardContainer">
           <h1>Leaderboard</h1>
