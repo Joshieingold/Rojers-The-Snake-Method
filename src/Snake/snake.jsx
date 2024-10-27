@@ -127,7 +127,7 @@ const Snake = ({ character, gameOver }) => {
       case 'ArrowRight':
         if (direction.x === 0) setDirection({ x: 1, y: 0 });
         break;
-      case ' ':
+      case ' ': // Checks if you have the cost of the power-up if so then it activates them
         if (powerPoints >= 10) {
           setPowerPoints((prevPowerPoints) => prevPowerPoints - 10);
           if (character === "TK") {
@@ -136,11 +136,11 @@ const Snake = ({ character, gameOver }) => {
           }
           if (character == "Josh") {
             setIsJoshPowerActive(true)
-            setTimeout(() => setIsJoshPowerActive(false), 10000);
+            setTimeout(() => setIsJoshPowerActive(false), 10000); // Power-up is disabled after 10 seconds
           }
           if (character == "Maulik") {
             setIsMaulikPowerActive(true);
-            setTimeout(() => setIsMaulikPowerActive(false), 5000);
+            setTimeout(() => setIsMaulikPowerActive(false), 5000); // Power-up is disabled after 5 seconds
           }
         }
         break;
@@ -148,9 +148,6 @@ const Snake = ({ character, gameOver }) => {
         break;
     }
   };
-
-
-  // Contains the power-ups for Maulik
 
 // Move the snake at normal speed.
   useEffect(() => {
@@ -161,13 +158,15 @@ const Snake = ({ character, gameOver }) => {
     }, speed);  // Speed changes dynamically
 
     return () => clearInterval(intervalId); // Clean up interval
-  }, [snake, direction, isGameOver, speed]);  // Track `speed` in dependencies
+  }, [snake, direction, isGameOver, speed]);  
+  
   // Keydown listener for movements.
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [direction]);
-  // The snake structure
+  
+  // The snake structure //
   return (
     <div className='snakeContent'> 
       <div className="game-board">
@@ -180,6 +179,7 @@ const Snake = ({ character, gameOver }) => {
             // Add a special class if any power-up is active
             const isPowerSnake = isJoshPowerActive || isTKPowerActive || isMaulikPowerActive;
             
+            // The HTML for the game.
             return (
               <div
                 key={`${row}-${col}`}
@@ -191,7 +191,8 @@ const Snake = ({ character, gameOver }) => {
             );
           })
         )}
-      </div>
+        {/* HTML for the score and power-points */}
+    </div>
       <h3 className="score">Bom-Wipped: {score}</h3>
       <h3 className='powerbar'>Power Points {powerPoints}</h3>
     </div>
