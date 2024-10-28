@@ -249,21 +249,31 @@ function App() {
       
       {/* Div for the how to play section */}
       {gameState === GameState.HOWTOPLAY && (
-      <div className="screenContainer">
-        <h1>How to play:</h1>
-        <h2>Welcome to the Rojers warehouse</h2>
-        <p>Its your first day and you're learning to Bom-Wip, choose your trainer and learn the snake method!</p>
-        <h2>Gameplay:</h2>  
-        <p>use the arrow keys to move your snake and try not to crash into a wall or yourself as the boxes crowd your workspace.</p>
-        <p>Attend enough pizza parties and once your morale is at least at 10 use your special ability by pressing space!</p>
-        <h3>Josh:</h3>
-        <p>Josh will show you his method. Making barcodes worth double their score.</p>
-        <h3>TK:</h3>
-        <p>TK will make efficient use of his time being able to get Bom-Wipping complete during pizza parties. making pizza's worth 6 points! Be careful as they will now be cost making a box.</p>
-        <h3>Maulik</h3>
-        <p>Maulik is going to show you the art of quickly fixing mistakes. Use his power to become a ghost and sort out your boxes. Be careful not to get lost during this time!</p>
-        <h3>Have a good day at work!</h3>
-        <button onClick={selectCharacter}>Play!</button>
+      <div className="screenContainer howToPlay">
+        <h1 className="logo-text">How to play:</h1>
+        <div className="textContainer">
+          <h2>Welcome to the Rojers warehouse</h2>
+          <p>Its your first day and you're learning to Bom-Wip, choose your trainer and learn the snake method!</p>
+          <h2>Gameplay:</h2>  
+          <p>Use the ARROW KEYS to move your snake and try not to crash into a wall or yourself as the boxes crowd your workspace.</p>
+          <p>Attend enough pizza parties and once your morale is at least at 10 use your special ability by pressing SPACEBAR!</p>
+          <div className="charDescriptionContainer">
+            <div className="charDescription">
+                <h3>Josh:</h3>
+                <p>Josh will show you his advancements in automation. Making barcodes worth double their score after programming during all the pizza parties.</p>
+            </div>
+            <div className="charDescription">
+              <h3>TK:</h3>
+              <p>TK will make efficient use of his time being able to get Bom-Wipping complete during pizza parties. making pizza's worth 6 points! Be careful as they will now be cost making a box.</p>
+            </div>
+            <div className="charDescription">
+              <h3>Maulik</h3>
+              <p>Maulik is going to show you the art of quickly fixing mistakes. Use his power to become a ghost and sort out your boxes. Be careful not to get lost during this time!</p>
+            </div>
+          </div>
+          <h3>Have a good day at work!</h3>
+        </div>
+        <button onClick={selectCharacter} className="htpBtn">Play!</button>
       </div>
       )}
 

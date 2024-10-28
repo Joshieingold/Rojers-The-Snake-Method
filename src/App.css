@@ -240,3 +240,24 @@ button {
   background-color: #410000;
   border: 1px solid rgba(255, 255, 255, 0.288) ;
 }
+.howToPlay {
+  background-color: #000000ec;
+  overflow-y: scroll;
+  width: 90%;
+  height: 95%
+}
+.charDescriptionContainer {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.charDescription {
+  background-color: #94000088;
+  width: 30%;
+  border:2px solid #410000;
+  
+}
+.htpBtn {
+  background-color: red;
+  margin-bottom: 20px;
+}
