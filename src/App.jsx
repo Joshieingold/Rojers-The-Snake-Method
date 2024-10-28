@@ -14,7 +14,8 @@ const GameState = {
   CHARACTERSELECT: "CHARACTERSELECT",
   PLAYING: "PLAYING",
   GAME_OVER: "GAME_OVER",
-  LEADERBOARD: "LEADERBOARD"
+  LEADERBOARD: "LEADERBOARD",
+  HOWTOPLAY: "HOWTOPLAY"
 };
 
 // Main function of the game
@@ -124,7 +125,7 @@ function App() {
     playMusic(); // Play music when the game starts
   };
 
-  // Handles character select
+  // Handle character select
   const selectCharacter = () => {
     setGameState(GameState.CHARACTERSELECT);
   };
@@ -134,6 +135,10 @@ function App() {
     setGameState(GameState.PLAYING);
   };
 
+  // handle loading of how to play senction
+  const howToPlay = () => {
+    setGameState(GameState.HOWTOPLAY)
+  } 
   // All the HTML based on GameState //
 
   return (
@@ -146,6 +151,7 @@ function App() {
           <div className="homeButtonContainer">
             <button onClick={selectCharacter} className="homeBtn">Start Game</button>
             <button onClick={loadLeaderboard} className="homeBtn">View Leaderboard</button>
+            <button onClick={howToPlay} className="homeBtn">How To Play</button>
           </div>
         </div>
         
@@ -207,13 +213,9 @@ function App() {
               <button className="gameOverButton" onClick={selectCharacter}>Change Character</button>
             </div>
             <div className="leaderboardButtons">
-              <button className="gameOverButton" onClick={handleScoreSubmission}>
-                Submit Score
-              </button>
+              <button className="gameOverButton" onClick={handleScoreSubmission}>Submit Score</button>
               <button className="gameOverButton" onClick={loadLeaderboard}>View Leaderboard</button>
-              <button className="gameOverButton" onClick={skipScoreSubmission}>
-                Skip Submission
-              </button>
+              <button className="gameOverButton" onClick={skipScoreSubmission}>Home</button>
             </div>
           </div>
         </div>
@@ -244,6 +246,28 @@ function App() {
           <button className="backButton" onClick={() => setGameState(GameState.TITLE)}>Back to Title</button>
         </div>
       )}
+      
+      {/* Div for the how to play section */}
+      {gameState === GameState.HOWTOPLAY && (
+      <div className="screenContainer">
+        <h1>How to play:</h1>
+        <h2>Welcome to the Rojers warehouse</h2>
+        <p>Its your first day and you're learning to Bom-Wip, choose your trainer and learn the snake method!</p>
+        <h2>Gameplay:</h2>  
+        <p>use the arrow keys to move your snake and try not to crash into a wall or yourself as the boxes crowd your workspace.</p>
+        <p>Attend enough pizza parties and once your morale is at least at 10 use your special ability by pressing space!</p>
+        <h3>Josh:</h3>
+        <p>Josh will show you his method. Making barcodes worth double their score.</p>
+        <h3>TK:</h3>
+        <p>TK will make efficient use of his time being able to get Bom-Wipping complete during pizza parties. making pizza's worth 6 points! Be careful as they will now be cost making a box.</p>
+        <h3>Maulik</h3>
+        <p>Maulik is going to show you the art of quickly fixing mistakes. Use his power to become a ghost and sort out your boxes. Be careful not to get lost during this time!</p>
+        <h3>Have a good day at work!</h3>
+        <button onClick={selectCharacter}>Play!</button>
+      </div>
+      )}
+
+
     </div>
   );
 }
