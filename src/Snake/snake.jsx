@@ -70,6 +70,7 @@ const Snake = ({ character, gameOver }) => {
         if (isTKPowerActive) {
           setScore(prevScore => prevScore + (barcodeScore + 2)); // During power-up, power ups are worth barcodes + 2
           setPowerup(generateNewPowerupPosition()); // Spawns new power up somwhere.
+          return [...newSnake, ...prevSnake]; // If TK power is active it will grow the snake.
         }
         else {
           setPowerup(generateNewPowerupPosition()); // Spawns new power up somwhere.
